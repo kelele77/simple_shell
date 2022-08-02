@@ -33,7 +33,7 @@ char *_strdup(char *str)
 }
 
 /**
- * concat_all - concats 3 strings in a newly allocated 
+ * concat_all - concats 3 strings in a newly allocated
  * memory
  * @name: first string
  * @sep: second string
