@@ -1,102 +1,105 @@
 #include "holberton.h"
-/**
- * _strcmpdir - compares strings to find dir.
- *
- * @s1: string.
- * @s2: string.
- *
- * Return: if match and any other number if otherwise.
- **/
-int _strcmpdir(char *s1, char *s2)
-{
-	int i = 0;
 
-	for (; (*s2 != '\0' && *s1 != '\0') && *s1 == *s2; s1++)
-	{
-		if (i == 3)
-			break;
+/**
+* _strcmp - compares two strings
+* @s1: compared to s2;
+* @s2: compared to s1;
+*
+* Return: returns difference between strings
+*/
+int _strcmp(char *s1, char *s2)
+{
+	int i = 0, output;
+
+	while (*(s1 + i) == *(s2 + i) && *(s1 + i) != '\0')
 		i++;
-		s2++;
-	}
 
-	return (*s1 - *s2);
-}
-/**
- * charput - writes the character like putchar
- * @c: The character to print
- *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
- */
-int charput(char c)
-{
-	return (write(1, &c, 1));
+	output = (*(s1 + i) - *(s2 + i));
+
+	return (output);
 }
 
 /**
- * place - similar to puts in C
- * @str: a pointer the integer we want to set to 402
- *
- * Return: int
- */
-void place(char *str)
+* _strlen - returns the length of a string
+* @s: string passed
+*
+* Return: returns length of string passed
+*/
+int _strlen(char *s)
 {
-	while (*str != '\0')
+	int count = 0;
+
+	while (*s != '\0')
 	{
-		charput(*str);
-		str++;
+		count++;
+		s++;
 	}
+	return (count);
 }
 
 /**
- * _strlen - Len string.
- * @str: My string.
- * Return: Length.
- */
-int _strlen(char *str)
+* _strncmp - compares two strings up to n bytes
+* @s1: compared to s2
+* @s2: compared to s1
+* @n: number of bytes
+*
+* Return: difference between s1 and s2
+*/
+int _strncmp(char *s1, char *s2, int n)
 {
 	int i;
 
-	for (i = 0; str[i] != '\0'; i++)
-		;
-
-	return (i);
+	for (i = 0; s1[i] && s2[i] && i < n; i++)
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+	}
+	return (0);
 }
 
 /**
- * str_concat - concatane strings.
- * @s1: string.
- * @s2: second string.
- * Return: strings.
- */
-char *str_concat(char *s1, char *s2)
+* _strdup - dupicates string
+* @s: to be duplicated
+*
+* Return: pointer to duplicate string
+*/
+char *_strdup(char *s)
 {
-	char *a;
-	int lens1, lens2, j, i, e;
+	char *ptr;
+	int i, len;
 
-	if (s1 == NULL)
-		s1 = "";
-
-	if (s2 == NULL)
-		s2 = "";
-
-	lens1 = _strlen(s1);
-
-	lens2 = _strlen(s2);
-
-	a = malloc(((lens1) + (lens2) + 1) * sizeof(char));
-
-	if (a == NULL)
+	if (s == NULL)
 		return (NULL);
 
-	for (j = 0; j < lens1; j++)
-	{
-		a[j] = s1[j];
-	}
+	len = _strlen(s);
 
-	for (i = lens1, e = 0; e <= lens2; i++, e++)
+	ptr = malloc(sizeof(char) * (len + 1));
+	if (!ptr)
+		return (NULL);
+	for (i = 0; *s != '\0'; s++, i++)
+		ptr[i] = s[0];
+
+	ptr[i++] = '\0';
+	return (ptr);
+}
+
+/**
+* _strchr - locates a character in a string
+* @s: string to be checked
+* @c: character to be located
+*
+* Return: returns pointer to first occurence of character
+* or NULL if character not found
+*/
+char *_strchr(char *s, char c)
+{
+	while (*s)
 	{
-		a[i] = s2[e];
+		if (*s == c)
+			return (s);
+		s++;
 	}
-	return (a);
+	if (!c)
+		return (s);
+	return (NULL);
 }
